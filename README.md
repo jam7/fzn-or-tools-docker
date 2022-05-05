@@ -6,6 +6,17 @@ A docker container to run fzn-or-tools as a host user.
 
 Need to install docker.
 
+## Size
+
+A image generated from `or-tools_amd64_flatzinc_alpine-edge_v9.3.10497.tar.gz`
+has 49.6MB.
+
+```
+$ docker images
+REPOSITORY                                          TAG           IMAGE ID       CREATED             SIZE
+jam7/fzn-or-tools                                   v1.2          7b730a5b6e91   12 minutes ago      49.6MB
+```
+
 ## Install
 
 Download container and run it to generate kindlegen script.

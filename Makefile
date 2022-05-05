@@ -1,4 +1,4 @@
-RELEASE_VERSION = v1.0
+RELEASE_VERSION = v1.1
 VERSION = latest
 
 OPTIONS = \
@@ -12,6 +12,10 @@ build: FORCE
 
 release: FORCE
 	docker build -t jam7/fzn-or-tools:${RELEASE_VERSION} ${OPTIONS} .
+
+push: FORCE
+	docker push jam7/fzn-or-tools:${RELEASE_VERSION}
+	docker push jam7/fzn-or-tools:${VERSION}
 
 run: FORCE
 	docker run --init -it --rm jam7/fzn-or-tools sh

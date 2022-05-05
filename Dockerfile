@@ -10,6 +10,7 @@ WORKDIR /usr/local
 RUN curl -L ${ORTOOLS} -o ortools.tar.gz && \
     tar --strip-components 1 -xf ortools.tar.gz && \
     rm ortools.tar.gz && \
+    rm -rf examples && \
     cd lib && \
     rm libflatzinc.so libflatzinc.so.9 && \
     ln libflatzinc.so.9.3.10497 libflatzinc.so && \

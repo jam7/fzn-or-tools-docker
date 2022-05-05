@@ -1,22 +1,29 @@
-#!/bin/sh -eu
+#!/bin/bash -eu
 
 CMD="/usr/local/bin/fzn-or-tools"
 INIT="--init"
 TTY=""
+ENVS=()
 
 case $# in
 0) ;;
 *) case .$1 in
-   .*sh|.*bash) CMD=""; INIT=""; TTY="-ti";;
+   .*sh|.*bash) CMD="$1"; shift; INIT=""; TTY="-ti";;
    esac
+   ;;
+esac
+
+case "$CMD" in
+.*sh|.*bash) ;;
+*) ENVS+=("-e" FZNORTOOLS_UID="$( id -u )")
+   ENVS+=("-e" FZNORTOOLS_GID="$( id -g )")
+   ENVS+=("-e" FZNORTOOLS_USER="$( id -un )")
+   ENVS+=("-e" FZNORTOOLS_GROUP="$( id -gn )")
    ;;
 esac
 
 exec docker run $TTY $INIT --rm \
     -v "$PWD":/work \
     -v /tmp:/tmp \
-    -e FZNORTOOLS_UID="$( id -u )" \
-    -e FZNORTOOLS_GID="$( id -g )" \
-    -e FZNORTOOLS_USER="$( id -un )" \
-    -e FZNORTOOLS_GROUP="$( id -gn )" \
+    "${ENVS[@]}" \
     jam7/fzn-or-tools "$CMD" "$@"

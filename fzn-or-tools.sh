@@ -14,7 +14,7 @@ case $# in
 esac
 
 case "$CMD" in
-.*sh|.*bash) ;;
+/bin/sh) ;; # Run /bin/sh as an administrator
 *) ENVS+=("-e" FZNORTOOLS_UID="$( id -u )")
    ENVS+=("-e" FZNORTOOLS_GID="$( id -g )")
    ENVS+=("-e" FZNORTOOLS_USER="$( id -un )")
